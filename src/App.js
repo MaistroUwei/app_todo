@@ -1,23 +1,55 @@
-import logo from './logo.svg';
+import React, { useState } from 'react'; 
+import Tareaform from './Componentes/Tareaform';
+import Tarea from './Componentes/Tarea';
 import './App.css';
 
 function App() {
+  const [listaTareas, setListaTareas] = useState([]);
+
+  // Agregamos nueva taraea usanto el ... para copiar la lista anterior después del elemento nuevo
+  const nuevaTarea = (tarea) => {
+    setListaTareas([tarea, ...listaTareas])
+  }
+
+  // Para borrar tareas
+  const borrar = (id) => {
+    const listaFiltrada = listaTareas.filter((e, index) => index !== id)
+    setListaTareas(listaFiltrada);
+  }
+
+  /*Para actualizar tareas 
+  Es necesario conocer qué tarea se edita (ID) 
+  y el contenido de dicha tarea (tarea)*/
+
+  const actualizarTarea = (id, tarea) => {
+    const listaActualizada = listaTareas.map((e, index) => {
+      if(index === id){
+        e = tarea;
+      }
+
+      return e;
+    })
+
+    setListaTareas(listaActualizada)
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Tareaform 
+      nuevaTarea={nuevaTarea}
+      /> 
+
+      <div className='lista'>
+        {
+          listaTareas.map((e, index) => <Tarea 
+                                  tarea={e}
+                                  borrar={borrar}
+                                  id={index}
+                                  editar={actualizarTarea}
+                                  />
+          )
+        }
+      </div>
+
     </div>
   );
 }
