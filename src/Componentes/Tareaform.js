@@ -10,6 +10,7 @@ const Tareaform = (props) => {
         setInputText(event.target.value);
     }
 
+    // Elementos de validación
     const submit = (event) => {
         event.preventDefault();
         //Verificamos si el input text está vacío

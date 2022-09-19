@@ -1,11 +1,36 @@
-import React, { useState } from 'react'; 
+import React, { useEffect, useState } from 'react'; 
 import Tareaform from './Componentes/Tareaform';
 import Tarea from './Componentes/Tarea';
 import './App.css';
 
-function App() {
-  const [listaTareas, setListaTareas] = useState([]);
+const tareasDefault=[
+  "Tarea 1",
+  "Tarea 2",
+  "Tarea 3",
+  "Tarea 4"
+]
 
+function App() {
+  const [listaTareas, setListaTareas] = useState(tareasDefault);
+  const [buscaValor, setBuscaValor] = useState("");
+
+  let tareasBuscadas = [];
+
+  if (buscaValor.length<1){
+    tareasBuscadas = listaTareas;
+  } else {
+    tareasBuscadas = listaTareas.filter(x => {
+      const busqueda = x.toLowerCase();
+      const busquedax = buscaValor.toLowerCase();
+      return busqueda.includes(busquedax);
+    })
+  }
+
+  const cambioValor = (event) => {
+    setBuscaValor(event.target.value);
+  };
+
+  
   // Agregamos nueva taraea usanto el ... para copiar la lista anterior después del elemento nuevo
   const nuevaTarea = (tarea) => {
     setListaTareas([tarea, ...listaTareas])
@@ -33,17 +58,23 @@ function App() {
     setListaTareas(listaActualizada)
   }
   return (
-    <div className="App">
+    <div className="App"> 
+      <input value = {buscaValor} onChange={cambioValor}
+      
+      //onChange={filtrandoTexto}
+      placeholder='Buscar'
+      ></input>
       <Tareaform 
       nuevaTarea={nuevaTarea}
       /> 
 
       <div className='lista'>
         {
-          listaTareas.map((e, index) => <Tarea 
+          tareasBuscadas.map((e, index) => <Tarea 
                                   tarea={e}
                                   borrar={borrar}
                                   id={index}
+                                  key={index}
                                   editar={actualizarTarea}
                                   />
           )
