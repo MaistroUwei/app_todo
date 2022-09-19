@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import '../App.css';
 
+
 const Tareaform = (props) => {
     const [inputText, setInputText] = useState("");
     //Para que no te deje añadir nada si no hay nada escrito
@@ -9,7 +10,7 @@ const Tareaform = (props) => {
     const manejarForm = (event) => {
         setInputText(event.target.value);
     }
-
+    
     // Elementos de validación
     const submit = (event) => {
         event.preventDefault();
@@ -26,9 +27,9 @@ const Tareaform = (props) => {
   return (
     <div>
         <form className='form' onSubmit={submit}>
-            <span>Agreagar tarea</span>
+            <span>Agregar tarea</span>
             <input value={inputText} onChange={manejarForm}/>
-            <button>Agregar</button>
+            <button type="button" class="btn">Agregar</button>
         </form>
         { //Si setValidación es false no te deja agregar nada
             !validacion &&

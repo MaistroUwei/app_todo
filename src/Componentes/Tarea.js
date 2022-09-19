@@ -25,6 +25,7 @@ const Tarea = (props) => {
     }
     
     return (
+        <div className="tarea">
         <div>
             {
                 !modoEdit ?
@@ -38,6 +39,7 @@ const Tarea = (props) => {
                     <input value={editText} onChange={manejarEdit}/> <button>Guardar</button>
                 </form>
             }
+        </div>
         </div>
     )
 }

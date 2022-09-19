@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useState } from 'react'; 
 import Tareaform from './Componentes/Tareaform';
 import Tarea from './Componentes/Tarea';
 import './App.css';
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/98mprice/PSone.css@master/PSone.min.css"></link>
 
 const tareasDefault=[
   "Tarea 1",
@@ -33,7 +34,7 @@ function App() {
   
   // Agregamos nueva taraea usanto el ... para copiar la lista anterior después del elemento nuevo
   const nuevaTarea = (tarea) => {
-    setListaTareas([tarea, ...listaTareas])
+    setListaTareas([...listaTareas, tarea])
   }
 
   // Para borrar tareas
@@ -58,7 +59,10 @@ function App() {
     setListaTareas(listaActualizada)
   }
   return (
+    <main>
+      <div className='container'>
     <div className="App"> 
+    <div className='barra'>
       <input value = {buscaValor} onChange={cambioValor}
       
       //onChange={filtrandoTexto}
@@ -67,6 +71,7 @@ function App() {
       <Tareaform 
       nuevaTarea={nuevaTarea}
       /> 
+      </div>
 
       <div className='lista'>
         {
@@ -82,6 +87,8 @@ function App() {
       </div>
 
     </div>
+    </div>
+    </main>
   );
 }
 
